@@ -1,18 +1,22 @@
-<%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
+
 <body>
-	
-	<% 
-		System.out.print("여기 동작???");
-		
-	%>
-	<h1>피카츄라이츄파이리꼬북이버터풀야도</h1>
+
+    <h2>This is a heading</h2>
+    <p>여기는 피태그 1</p>
+    <p>여기는 피태그 2</p>
+
+    <button>click me</button>
+
+    <script src="/blog/js/test.js"></script>
+
 </body>
 </html>

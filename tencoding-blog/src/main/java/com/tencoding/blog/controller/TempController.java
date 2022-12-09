@@ -25,4 +25,9 @@ public class TempController {
 		return "/test";
 	}
 	
+	@GetMapping("/temp/join")
+	public String join() {
+		return "/join";
+	}
+	
 }

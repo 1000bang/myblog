@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tencoding.blog.dto.User;
@@ -62,6 +64,21 @@ public class DummyControllerTest {
 		// 로직 수행...
 		return "회원가입이 완료되었습니다";
 	}
+	
+	// form -> name 키값과 같아야 한다.  
+	@PostMapping("/signup2")
+	public String SignUp2(String username, String password, String email) {
+
+		User reqUser = new User();
+		reqUser.setUsername(username);
+		reqUser.setPassword(password);
+		reqUser.setEmail(email);
+		reqUser.setRole(RoleType.USER);
+		userRepository.save(reqUser);
+		// 로직 수행...
+		return "회원가입이 완료되었습니다";
+	}
+	
 	
 	// select all 전체보기
     @GetMapping("/users")
@@ -114,5 +131,16 @@ public class DummyControllerTest {
     	return "삭제되었습니다" +id;
     }
     
+    //스프링 기본 파싱 전략
+    //http://localhost:9090/blog/dummy/user/test?name=hong&age=12
+    //form 태그로 넘어오는 녀석도 처리 가능하다.
+    
+    @GetMapping("/user/test")
+    public String getTest(String name, int age) {
+		
+    	System.out.println("name : " + name);
+    	System.out.println("age : " + age);
+    	return "";
+	}
 	
 }
