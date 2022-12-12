@@ -34,12 +34,11 @@
 			if(data.httpStatus == "OK"){
 				alert("회원가입완료  ");
 				location.href = "/";  //루트 컨텍스트로 가라 
-			}else {
-				alert("회원가입실패  ");
 			}
 		}).fail(function (error) {
 			console.log(error);
-			console.log(error.responseJSON.statusCode);
+			console.log(error.responseJSON.message);
+			alert("회원가입실패  " + error.responseJSON.message)
 		});
 	}
  

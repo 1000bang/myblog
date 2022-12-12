@@ -68,7 +68,7 @@ public ResponseEntity<?> exception(Exception e) {
 				.builder()
 				.statusCode(HttpStatus.BAD_REQUEST.toString())
 				.code(HttpStatus.BAD_REQUEST.value())
-				.message(e.getMessage())
+				.message("동일한 아이디가 존재합니다. ")
 				.build();
 
 		
