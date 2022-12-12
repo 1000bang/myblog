@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.tencoding.blog.dto.CustomError;
+import com.tencoding.blog.dto.ErrorResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -56,5 +58,25 @@ public ResponseEntity<?> exception(Exception e) {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(eList);
 		
 	}
+	
+	@ExceptionHandler(value = UnexpectedRollbackException.class)
+	public ResponseEntity unexpectedRollbackException(UnexpectedRollbackException e) {
+		
+		System.out.println("UnexpectedRollbackException");
+		
+		ErrorResponse errorResponse = ErrorResponse
+				.builder()
+				.statusCode(HttpStatus.BAD_REQUEST.toString())
+				.code(HttpStatus.BAD_REQUEST.value())
+				.message(e.getMessage())
+				.build();
+
+		
+		//Todo
+		//error Response s는 추후처리 
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+		
+	}
+
 
 }
