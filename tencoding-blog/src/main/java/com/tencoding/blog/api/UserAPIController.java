@@ -44,7 +44,7 @@ public class UserAPIController {
 		}
 		
 	
-		return new responseUserDto<User>(HttpStatus.OK, principal);
+		return new responseUserDto<Integer>(HttpStatus.OK, 1);
 	}
 	
 	

@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%-- <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%> --%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
+<sec:authorize access="isAuthenticated()">
+    Welcome Back, <sec:authentication property="name"/>
+    Welcome Back, <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +30,7 @@
 			<ul class="navbar-nav">
 
 			<c:choose>
-			<c:when test = "${empty sessionScope.principal}">
+			<c:when test = "${empty principal}">
 			<li class="nav-item"><a class="nav-link" href="/login-form">로그인</a></li>
 				<li class="nav-item"><a class="nav-link" href="/join-form">회원가입 </a></li>
 			</c:when>
