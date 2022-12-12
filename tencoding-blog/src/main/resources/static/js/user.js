@@ -9,6 +9,11 @@
 		 $("#btn--save").bind("click", () => {
 			this.save();	 
 		 }); //bind, on 같음
+		 
+		 $("#btn--login").bind("click", () => {
+			this.login();	 
+		 }); 
+		  
 	 },
 	 
 	save : function(){
@@ -40,7 +45,32 @@
 			console.log(error.responseJSON.message);
 			alert("회원가입실패  " + error.responseJSON.message)
 		});
+	},
+ 
+	login: function(){
+		let data = {
+			username: $("#username").val(),
+			password: $("#password").val(),
+	
+		};
+		$.ajax({
+			type:"POST",
+			url: "/api/user/login",
+			data : JSON.stringify(data),
+			contentType: "application/json; charset=utf-8",
+			dataType: "json"
+		}).done(function(data, textStatus, xhr){
+			alert("로그인성공  ");
+			console.log(data);
+			location.href = "/";  //루트 컨텍스트로 가라 
+			
+		}).fail(function(error){
+			alert("로그인 실패 ");
+		})
+		
 	}
+ 
+ 
  
  } 
  

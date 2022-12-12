@@ -3,17 +3,21 @@
 <%@ include file = "../layout/header.jsp" %>
     
     <div class = "container">
-<form action="/action_page.php">
+<form action="">
   <div class="form-group">
     <label for="username">Email address:</label>
-    <input type="text" class="form-control" placeholder="Enter username" id="username">
+    <input type="text" class="form-control" placeholder="Enter username" id="username" value="teco">
   </div>
   <div class="form-group">
     <label for="password">Password:</label>
-    <input type="password" class="form-control" placeholder="Enter password" id="password">
+    <input type="password" class="form-control" placeholder="Enter password" id="password" value="asd1234">
   </div>
  
-  <button type="submit" class="btn btn-primary">Sign-In</button>
 </form>
+
+<button type="button" id="btn--login"  class="btn btn-primary">Sign-In</button>
 </div>
+<script type="text/javascript" src="/js/user.js">
+</script>
+
 <%@ include file = "../layout/footer.jsp" %>

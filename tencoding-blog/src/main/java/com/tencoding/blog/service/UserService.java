@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tencoding.blog.dto.User;
+import com.tencoding.blog.model.RoleType;
 import com.tencoding.blog.repository.UserRepository;
 
 // 스프링이 컴포넌트 스캔을 통해서 Bean으로 등록해준다. IoC
@@ -28,6 +29,7 @@ public class UserService {
 	public int saveUser(User user) {
 		
 		try {
+			user.setRole(RoleType.USER);
 			userRepository.save(user);
 			return 1;
 		} catch (Exception e) {
@@ -36,4 +38,15 @@ public class UserService {
 			return -1;
 		}
 	}
+
+	public User login(User user) {
+		
+		//User userEntity = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+		User userEntity = userRepository.login(user.getUsername(), user.getPassword());
+		System.out.println("userEntity : " + userEntity);
+		
+		
+		return userEntity;
+	}
+	
 }
