@@ -32,21 +32,14 @@ public class UserAPIController {
 		int result = userService.saveUser(user);
 		return new responseUserDto<Integer>(HttpStatus.OK, result);
 	}
-//	@PostMapping("/user/login")
-//	public responseUserDto<?> login(@Validated @RequestBody User user) {
-//		System.out.println("UserAPIController login 호출 user : " + user);
-//		
-//		//principal 접근주체 
-//		User principal = userService.login(user);
-//		if(principal != null) {
-//			session.setAttribute("principal", principal);
-//		}
+
 //		
 //	
 //		return new responseUserDto<Integer>(HttpStatus.OK, 1);
-//	}
+
+}
 	
 	
 
 	
-}
+
