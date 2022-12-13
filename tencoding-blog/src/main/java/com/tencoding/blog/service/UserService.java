@@ -3,6 +3,7 @@ package com.tencoding.blog.service;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.tencoding.blog.dto.User;
@@ -16,6 +17,7 @@ public class UserService {
 //	서비스를 만드는 이유 
 //  트랜잭션 관리를 위해 
 //	
+
 	
 	
 	@Autowired
@@ -24,13 +26,21 @@ public class UserService {
 // transaction 작업의 단위
 //	하나의 기능 + 하나의 기능 들을 묶어서 단위의 기능을 만들어 처리 
 //	DB 수정시 roll back  처리 가능
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
 	
 	@Transactional
 	public int saveUser(User user) {
 		
 		try {
+			//비밀번호를 넣을 때 여기서 암호화 처리하고 DB에 저장하기 ! 
+			String rawPassword = user.getPassword();
+			String encPassword = encoder.encode(rawPassword);
+			user.setPassword(encPassword);
 			user.setRole(RoleType.USER);
 			userRepository.save(user);
+	
 			return 1;
 		} catch (Exception e) {
 			//회원가입 오류는 여기서 다 잡아줌 

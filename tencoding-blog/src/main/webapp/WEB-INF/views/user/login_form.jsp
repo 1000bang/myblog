@@ -2,20 +2,18 @@
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container">
-	<form action="">
+	<form action="/auth/loginProc" method="post">
 		<div class="form-group">
-			<label for="username">Email address:</label> <input type="text" class="form-control" placeholder="Enter username" id="username" value="teco">
+			<label for="username">Email address:</label> <input type="text" class="form-control" placeholder="Enter username" name = "username" id="username" value="teco">
 		</div>
 		<div class="form-group">
-			<label for="password">Password:</label> <input type="password" class="form-control" placeholder="Enter password" id="password" value="asd1234">
+			<label for="password">Password:</label> <input type="password" class="form-control" placeholder="Enter password" name = "password" id="password" value="asd1234">
 		</div>
-
+			<button type="submit" id="btn--login" class="btn btn-primary">Sign-In</button>
 	</form>
 
-	<button type="button" id="btn--login" class="btn btn-primary">Sign-In</button>
-</div>
-<script type="text/javascript" src="/js/user.js">
 	
-</script>
+</div>
+
 
 <%@ include file="../layout/footer.jsp"%>

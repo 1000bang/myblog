@@ -1,12 +1,14 @@
 package com.tencoding.blog.config;
 
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SuppressWarnings("deprecation")
 @Configuration // IoC 관리 
@@ -14,6 +16,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalMethodSecurity(prePostEnabled = true) //특정 주소로 접근하면 권한 및 인증 처리를 미리 체크하겠다.
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
+	//becrypt 방식으로 인코딩해주는 녀석  
+	// 왜 여기서? IoC관리하고 싶어서 어떻게 쓰나 di
+	@Bean
+	public  BCryptPasswordEncoder encodePWD() {
+		return new BCryptPasswordEncoder();
+	}
+	
+	
 	// /auth/login_form, auth/join_form --> /auth/** : auth뒤에 오는 걸 모두 허용하겠다
 	
 	@Override
