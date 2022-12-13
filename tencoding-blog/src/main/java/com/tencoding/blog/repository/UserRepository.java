@@ -1,5 +1,7 @@
 package com.tencoding.blog.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -12,6 +14,11 @@ import com.tencoding.blog.dto.User;
 public interface UserRepository extends JpaRepository<User, Integer>{
 
 	//없는 함수는 직접 함수를 만들거나 spring jpa 네이밍 전략을 사용 
+	
+	//Select * from user where username = ?1;
+	Optional<User> findByUsername(String username);
+	
+	
 	
 	//select * from user where  username = ? and password = ?
 //	User findByUsernameAndPassword(String username, String password);

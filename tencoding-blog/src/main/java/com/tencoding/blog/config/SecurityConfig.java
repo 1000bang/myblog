@@ -1,14 +1,18 @@
 package com.tencoding.blog.config;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.tencoding.blog.auth.PrincipalDetailService;
 
 @SuppressWarnings("deprecation")
 @Configuration // IoC 관리 
@@ -22,6 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public  BCryptPasswordEncoder encodePWD() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	@Autowired
+	private PrincipalDetailService principalDetailService;
 	
 	
 	// /auth/login_form, auth/join_form --> /auth/** : auth뒤에 오는 걸 모두 허용하겠다
@@ -38,8 +45,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.anyRequest()
 			.authenticated()
 		.and()
-			.formLogin() 			//허용된 사용자가 아니면 로그인페이지로 보내기  
-			.loginPage("/auth/login_form");
+			.formLogin() 				//허용된 사용자가 아니면 로그인페이지로 보내기  
+			.loginPage("/auth/login_form")
+			.loginProcessingUrl("/auth/loginProc")
+			.defaultSuccessUrl("/") 	 //성공시 이동경로  
+			//.failureUrl("/")  		//실패시 이동 경로 
+			;
+		
+	}
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		// 1. userDetailsService 들어갈 Object 만들어주어야 한다. 
+		// 2. passwordEncoder 우리가 사용하는 해시 암호와 함수를 알려 주어야 한다. 
+		
+		// 1 우리가 커스텀한 녀석을 넣어야 한다.
+		// 2 BCryptPasswordEncoder 사용해서 암호화하였다. 
+		auth.userDetailsService(principalDetailService).passwordEncoder(encodePWD());
+	
 	}
 	
 	
