@@ -13,7 +13,7 @@ public class UserController {
 	@Autowired
 	HttpSession session;
 	
-	@GetMapping("/login-form")
+	@GetMapping("/auth/login_form")
 	public String loginForm() {
 		
 		
@@ -21,18 +21,18 @@ public class UserController {
 		return "/user/login_form";
 	}
 	
-	@GetMapping("/join-form")
+	@GetMapping("/auth/join_form")
 	public String joinForm() {
 
 		return "/user/join_form";
 	}
 	
 	//기존 스프링에서 로그아웃처리는 따로 정리 !
-	@GetMapping("/logout")
-	public String logout() {
-		HttpSession httpSession = session;
-		httpSession.invalidate(); // 세션이 바로 삭제됨 로그아웃 처
-	return "redirect:/";	
-	}
+//	@GetMapping("/logout")
+//	public String logout() {
+//		HttpSession httpSession = session;
+//		httpSession.invalidate(); // 세션이 바로 삭제됨 로그아웃 처
+//	return "redirect:/";	
+//	}
 	
 }

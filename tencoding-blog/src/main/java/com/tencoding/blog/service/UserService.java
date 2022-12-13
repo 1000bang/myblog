@@ -39,14 +39,14 @@ public class UserService {
 		}
 	}
 
-	public User login(User user) {
-		
-		//User userEntity = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-		User userEntity = userRepository.login(user.getUsername(), user.getPassword());
-		System.out.println("userEntity : " + userEntity);
-		
-		
-		return userEntity;
-	}
+//	public User login(User user) {
+//		
+//		//User userEntity = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+//		User userEntity = userRepository.login(user.getUsername(), user.getPassword());
+//		System.out.println("userEntity : " + userEntity);
+//		
+//		
+//		return userEntity;
+//	}
 	
 }

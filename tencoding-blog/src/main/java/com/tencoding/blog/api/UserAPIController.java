@@ -16,7 +16,6 @@ import com.tencoding.blog.dto.responseUserDto;
 import com.tencoding.blog.service.UserService;
 
 @RestController
-@RequestMapping("/api")
 public class UserAPIController {
 
 	//DI
@@ -25,7 +24,7 @@ public class UserAPIController {
 	@Autowired
 	private HttpSession session;
 	
-	@PostMapping("/user")
+	@PostMapping("/auth/joinProc")
 	public responseUserDto<Integer> save(@RequestBody User user) {
 		System.out.println("UserAPIController 호출 user : " + user);
 		
@@ -33,19 +32,19 @@ public class UserAPIController {
 		int result = userService.saveUser(user);
 		return new responseUserDto<Integer>(HttpStatus.OK, result);
 	}
-	@PostMapping("/user/login")
-	public responseUserDto<?> login(@Validated @RequestBody User user) {
-		System.out.println("UserAPIController login 호출 user : " + user);
-		
-		//principal 접근주체 
-		User principal = userService.login(user);
-		if(principal != null) {
-			session.setAttribute("principal", principal);
-		}
-		
-	
-		return new responseUserDto<Integer>(HttpStatus.OK, 1);
-	}
+//	@PostMapping("/user/login")
+//	public responseUserDto<?> login(@Validated @RequestBody User user) {
+//		System.out.println("UserAPIController login 호출 user : " + user);
+//		
+//		//principal 접근주체 
+//		User principal = userService.login(user);
+//		if(principal != null) {
+//			session.setAttribute("principal", principal);
+//		}
+//		
+//	
+//		return new responseUserDto<Integer>(HttpStatus.OK, 1);
+//	}
 	
 	
 
