@@ -23,6 +23,17 @@ public class PrincipalDetail implements UserDetails{
 		this.user = user;
 	}
 	
+	
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
 	// 계정의 권한을 반환 처리 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

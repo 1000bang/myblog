@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.and()
 			.formLogin() 				//허용된 사용자가 아니면 로그인페이지로 보내기  
 			.loginPage("/auth/login_form")
-			.loginProcessingUrl("/auth/loginProc")
+			.loginProcessingUrl("/auth/loginProc")  //이 요청이 오면 catch해라 
 			.defaultSuccessUrl("/") 	 //성공시 이동경로  
 			//.failureUrl("/")  		//실패시 이동 경로 
 			;
