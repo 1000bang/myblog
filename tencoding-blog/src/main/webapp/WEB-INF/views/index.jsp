@@ -1,41 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file = "layout/header.jsp" %>
-<!--  -->
+<%@ include file="layout/header.jsp"%>
+
+<c:forEach var="board" items="${boards.content}">
 	<div>
 		<div class="card m-2">
 			<div class="card-body">
-				<h4>블로그 -제목 부분</h4>
-				<p>블로그 - 내용부분</p>
+				<h4>${board.title}</h4>
+				<p>${board.content}</p>
 				<a href="#" class="btn btn-primary">상세보기 </a>
 			</div>
 		</div>
-		<br>
-
-		<div class="card m-2">
-			<div class="card-body">
-				<h4>블로그 -제목 부분</h4>
-				<p>블로그 - 내용부분</p>
-				<a href="#" class="btn btn-primary">상세보기 </a>
-			</div>
-		</div>
-		<br>
-
-		<div class="card m-2">
-			<div class="card-body">
-				<h4>블로그 -제목 부분</h4>
-				<p>블로그 - 내용부분</p>
-				<a href="#" class="btn btn-primary">상세보기 </a>
-			</div>
-		</div>
-		<br>
-
-		<div class="card m-2">
-			<div class="card-body">
-				<h4>블로그 -제목 부분</h4>
-				<p>블로그 - 내용부분</p>
-				<a href="#" class="btn btn-primary">상세보기 </a>
-			</div>
-		</div>
-		<br>
 	</div>
-<%@ include file = "layout/footer.jsp" %>
+	<br>
+</c:forEach>
+<ul class="pagination justify-content-center" style="margin:20px 0">
+  
+  <c:set var = "isDisabled" value = "disabled"> </c:set>
+  <c:set var = "isNotDisabled" value = ""> </c:set>
+	<li class="page-item ${boards.first ? isDisabled : isNotDisabled}"><a class="page-link" href="?page=${boards.number - 1}" >Previous</a></li>
+	
+	<li class="page-item ${boards.last ? isDisabled : isNotDisabled}"><a class="page-link" href="?page=${boards.number + 1}">Next</a></li>
+</ul>
+
+<%@ include file="layout/footer.jsp"%>

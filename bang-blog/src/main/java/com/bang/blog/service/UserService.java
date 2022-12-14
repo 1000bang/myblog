@@ -27,8 +27,6 @@ public class UserService {
 // transaction 작업의 단위
 //	하나의 기능 + 하나의 기능 들을 묶어서 단위의 기능을 만들어 처리 
 //	DB 수정시 roll back  처리 가능
-	@Autowired
-	private BCryptPasswordEncoder encoder;
 	
 	
 	@Transactional
@@ -37,8 +35,8 @@ public class UserService {
 		try {
 			//비밀번호를 넣을 때 여기서 암호화 처리하고 DB에 저장하기 ! 
 			String rawPassword = user.getPassword();
-			String encPassword = encoder.encode(rawPassword);
-			user.setPassword(encPassword);
+		//	String encPassword = encoder.encode(rawPassword);
+			//user.setPassword(encPassword);
 			userRepository.save(user);
 	
 			return 1;
