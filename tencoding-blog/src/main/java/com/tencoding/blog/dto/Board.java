@@ -44,7 +44,7 @@ public class Board {
 	//연관관계 만들기
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userId") // 컬럼명을 직접 지정 
-	private User userId;
+	private User user;
 	
 	// 테이블생성 xx object를 다룰 때 가지고와달라고 명시 (mappedBy)
 	//연관관계의 주인이 아님 select 할 때 가지고와야하는 데이터이다 reply 클래스에 해당  변수명 )

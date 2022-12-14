@@ -10,6 +10,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.tencoding.blog.dto.Board;
 import com.tencoding.blog.service.BoardService;
@@ -43,13 +44,18 @@ public class BoardController {
 	}
 	
 	
-	
-	
 	@GetMapping("/board/save_form")
 	public String save() {
 		
 		
 		return "/board/save_form";
+	}
+	
+	
+	@GetMapping("/board/{id}")
+	public String showDetail(@PathVariable int id, Model model) {
+		model.addAttribute("board", boardService.boardDetail(id));
+		return "/board/detail";
 	}
 	
 }

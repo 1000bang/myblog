@@ -23,14 +23,28 @@ public class BoardService {
 	public void write(Board board, User user) {
 		// 가독성을 위해 한번더 지정
 		board.setCount(0);
-		board.setUserId(user);
+		board.setUser(user);
 		boardRepository.save(board);
 	}
 	
-	@Transactional(readOnly = true) //select만 하는 녀석이란걸 명시 
-	public Page<Board> getBoardList(Pageable pageable){	
+	@Transactional(readOnly = true) //select 만 하는 녀석이라는걸 명시  
+	public Page<Board>  getBoardList(Pageable pageable) {
+		Page<Board> page =  boardRepository.findAll(pageable);
+		System.out.println(page.getSize());
 		
 		return boardRepository.findAll(pageable);
+	}
+
+	public Board boardDetail(int id) {
+		return boardRepository.findById(id).orElseThrow(() -> {
+			return new IllegalArgumentException("해당 글을 찾을 수 없습니다.");
+		});
+	}
+
+	@Transactional
+	public void deletebyId(int id) {
+		boardRepository.deleteById(id);
+		
 	}
 	
 	
