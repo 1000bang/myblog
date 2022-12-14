@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class responseUserDto<T> {
+public class ResponseDto<T> {
 
 	HttpStatus httpStatus;
 	T body;

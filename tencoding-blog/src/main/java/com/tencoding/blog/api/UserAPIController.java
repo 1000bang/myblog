@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tencoding.blog.dto.User;
-import com.tencoding.blog.dto.responseUserDto;
+import com.tencoding.blog.dto.ResponseDto;
 import com.tencoding.blog.service.UserService;
 
 @RestController
@@ -25,12 +25,12 @@ public class UserAPIController {
 	private HttpSession session;
 	
 	@PostMapping("/auth/joinProc")
-	public responseUserDto<Integer> save(@RequestBody User user) {
+	public ResponseDto<Integer> save(@RequestBody User user) {
 		System.out.println("UserAPIController 호출 user : " + user);
 		
 		//여기는 1 또는 -1 이 무조건 넘어옴 
 		int result = userService.saveUser(user);
-		return new responseUserDto<Integer>(HttpStatus.OK, result);
+		return new ResponseDto<Integer>(HttpStatus.OK, result);
 	}
 
 //		

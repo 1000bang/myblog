@@ -46,6 +46,19 @@ public class BoardService {
 		boardRepository.deleteById(id);
 		
 	}
+
+	@Transactional
+	public int modifyBoard(int boardId, Board board) {
+		//영속화 되었다. 
+		Board boardEntity = boardRepository.findById(boardId).orElseThrow(()->{
+			return new IllegalArgumentException("해당 글을 찾을 수 없어요.");
+		});
+		
+		boardEntity.setTitle(board.getTitle());
+		boardEntity.setContent(board.getContent());
+		//해당 함수 종료 시점에 트랜직션이 종료되고 더티체킹해서 자동 커밋 
+		return 1;
+	}
 	
 	
 }
