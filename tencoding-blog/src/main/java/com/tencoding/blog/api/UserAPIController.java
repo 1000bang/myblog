@@ -4,6 +4,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +28,13 @@ public class UserAPIController {
 	private UserService userService;
 	@Autowired
 	private HttpSession session;
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	
+	
+	
 	
 	@PostMapping("/auth/joinProc")
 	public ResponseDto<Integer> save(@RequestBody User user) {
@@ -41,6 +52,13 @@ public class UserAPIController {
 		
 		//validation처리 예외잡아서 사용자한테 떨궈주면 됨 
 		userService.updateUser(user);
+		//1. userNamepasswordAuthentication 생성  
+		Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+		
+		//2. 컨텍스트 홀더에 밀어넣기
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
 		return new ResponseDto<Integer>(HttpStatus.OK, 1);
 	}
 	
