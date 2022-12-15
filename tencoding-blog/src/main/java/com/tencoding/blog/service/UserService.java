@@ -1,10 +1,10 @@
 package com.tencoding.blog.service;
 
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tencoding.blog.dto.User;
 import com.tencoding.blog.model.RoleType;
@@ -50,7 +50,7 @@ public class UserService {
 	}
 
 
-	@org.springframework.transaction.annotation.Transactional
+	@Transactional
 	public void updateUser(User reqUser) {
 		
 		//내 정보가 있는가 확
