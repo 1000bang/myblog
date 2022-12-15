@@ -1,0 +1,17 @@
+package com.bang.blog.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.bang.blog.dto.User;
+
+public interface UserRepository extends JpaRepository<User, Integer>{
+
+	@Query(value = " SELECT * "
+			+ " FROM user "
+			+ " where username = ?1 "
+			+ " and password = ?2 ", nativeQuery = true)
+	User findbyUsernamePasswords(String username, String password);
+	
+
+}
