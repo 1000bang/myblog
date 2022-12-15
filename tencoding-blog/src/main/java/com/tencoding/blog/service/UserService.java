@@ -49,6 +49,29 @@ public class UserService {
 		}
 	}
 
+
+	@org.springframework.transaction.annotation.Transactional
+	public void updateUser(User reqUser) {
+		
+		//내 정보가 있는가 확
+		User userEntity = userRepository.findById(reqUser.getId())
+				 .orElseThrow(()->{
+			return new IllegalArgumentException("해당 유저를 찾을 수 없습니다. ");
+			
+		});
+		//여기로 내려온다는건 성공했다는 뜻이니까 
+		// 암호화 처리 하고 넣어주기 
+		String rawPassword = reqUser.getPassword();
+		String encPassword = encoder.encode(rawPassword);
+		userEntity.setUsername(reqUser.getUsername());
+		userEntity.setPassword(encPassword);
+		userEntity.setEmail(reqUser.getEmail());
+		//더티체킹 업데이트  
+	}
+
+
+	
+
 //	public User login(User user) {
 //		
 //		//User userEntity = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
