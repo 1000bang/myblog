@@ -59,14 +59,20 @@ public class UserService {
 			return new IllegalArgumentException("해당 유저를 찾을 수 없습니다. ");
 			
 		});
-		//여기로 내려온다는건 성공했다는 뜻이니까 
-		// 암호화 처리 하고 넣어주기 
-		String rawPassword = reqUser.getPassword();
-		String encPassword = encoder.encode(rawPassword);
-		userEntity.setUsername(reqUser.getUsername());
-		userEntity.setPassword(encPassword);
-		userEntity.setEmail(reqUser.getEmail());
-		//더티체킹 업데이트  
+		
+		// 우리 사이트 회원가입자 (소셜로그인이 x)
+		if(userEntity.getOauth() == null || userEntity.getOauth().equals("")) {
+			//여기로 내려온다는건 성공했다는 뜻이니까 
+			// 암호화 처리 하고 넣어주기 
+			String rawPassword = reqUser.getPassword();
+			String encPassword = encoder.encode(rawPassword);
+			userEntity.setUsername(reqUser.getUsername());
+			userEntity.setPassword(encPassword);
+			userEntity.setEmail(reqUser.getEmail());
+			//더티체킹 업데이트  
+		}
+		
+		
 	}
 
 	@Transactional

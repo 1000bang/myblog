@@ -7,9 +7,13 @@
 		<div class="form-group">
 			<label for="username">UserName:</label> <input type="text" class="form-control" placeholder="Enter username" id="username" value="${principal.user.username}" readonly="readonly">
 		</div>
+		
+		<c:if test="${empty principal.user.oauth}">
 		<div class="form-group">
 			<label for="password">Password:</label> <input type="password" class="form-control" placeholder="Enter password" id="password" value="">
 		</div>
+		</c:if>
+		
 		<div class="form-group">
 			<label for="email">Email:</label> <input type="email" class="form-control" placeholder="Enter email" id="email" value="${principal.user.email}">
 		</div>
