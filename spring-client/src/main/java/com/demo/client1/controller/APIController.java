@@ -14,7 +14,6 @@ public class APIController {
 	
 	private final RestTemplateService service;
 	
-	
 	public APIController(RestTemplateService service) {
 		this.service = service;
 	}
@@ -22,7 +21,5 @@ public class APIController {
 	@GetMapping("/get-hello")
 	public UserResponse getHello() {
 		return service.반가();
-	}
-	
-	
+	}	
 }

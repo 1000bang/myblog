@@ -37,7 +37,7 @@ public class User {
 	private int id;
 	
 	//컬럼에 제약 주기  
-	@Column(nullable = false, length = 30, unique = true)
+	@Column(nullable = false, length = 50, unique = true)
 	private String username;
 	@Column(nullable = false, length = 100)
 	private String password;
@@ -48,6 +48,10 @@ public class User {
 	//dafault 값 지정  ' ' 밖에 "" 문자열임을 알려준다 -> dynamicInsert 필
 	@Enumerated(EnumType.STRING) // DB에게 이넘이 string type이라고 알려줌 
 	private RoleType role; //admin, user, manager
+	
+	//일반 사용자인지 소셜로그인 사용자인지 구별 
+	private String oauth; //kakao or google  
+	
 	
 	@CreationTimestamp // 현재시간 자동 생성  
 	private Timestamp createDate;

@@ -16,20 +16,18 @@ public class RestTemplateService {
 	public UserResponse 반가() {
 		URI uri = UriComponentsBuilder
 				.fromUriString("http://localhost:8080")
-				.path("/api/server/hello/{userId}/name/{username}")
+				.path("/api/server/hello2")
 				.encode()
+				.queryParam("name", "홍길동")
+				.queryParam("age", "10")
 				.build()
-				.expand(100,"mike")
-				
 				.toUri();
 		System.out.println("주소확인 " + uri.toString());
 		RestTemplate restTemplate = new RestTemplate();
 		//String result = restTemplate.getForObject(uri, String.class);
 		ResponseEntity<UserResponse> result = restTemplate.getForEntity(uri, UserResponse.class);
 		System.out.println(result.getStatusCode());
-		
-		
-		
+
 		return result.getBody();
 	}
 	

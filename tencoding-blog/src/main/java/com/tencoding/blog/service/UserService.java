@@ -69,7 +69,14 @@ public class UserService {
 		//더티체킹 업데이트  
 	}
 
-
+	@Transactional
+	//데이터가 있나없나 확
+	public User searchUserNam(String username) {
+		
+		return userRepository.findByUsername(username).orElseGet(()->{
+			return new User();
+		});
+	}
 	
 
 //	public User login(User user) {
