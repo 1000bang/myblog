@@ -13,10 +13,6 @@ let index = {
 		$("#btn--update").bind("click", () => {
 			this.update();
 		});
-		$("#btn-reply-save").bind("click", () => {
-			this.replySave();
-		});
-
 
 	},
 
@@ -53,7 +49,7 @@ let index = {
 	},
 
 	deleteById: function() {
-		let id = $("#board-id").val();
+		let id = $("#board-id").text();
 		
 		//ajax통신
 
@@ -100,35 +96,6 @@ let index = {
 			
 		}).fail(function(error){
 			alert("글 수정에 실패하였습니다.");
-		});		
-		
-	},
-	
-	replySave : function(){
-		
-		let replyData = {
-			boardId : $("#board-id").val(),  //fk (board.pk)
-			content : $("#content").val(),
-			
-		};
-		
-		
-		$.ajax({
-			
-			type : "POST",
-			url : `/api/board/${replyData.boardId}/reply`,
-			data : JSON.stringify(replyData),
-			contentType: "application/json; charset=utf-8",
-			dataType:"json"
-			
-		}).done(function(data, textStatus, xhr) {
-			if(data.httpStatus == "OK"){
-				alert("댓글작성이 완료되었습니다. ");
-				location.href = `/board/${replyData.boardId}`;
-			}
-			
-		}).fail(function(error){
-			alert("댓글 작성에 실패하였습니다.");
 		});		
 		
 	}

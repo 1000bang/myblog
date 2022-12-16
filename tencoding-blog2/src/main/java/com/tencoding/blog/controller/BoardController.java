@@ -29,7 +29,9 @@ public class BoardController {
 		
 		Page<Board> boards = boardService.getBoardList(pageable);
 		
-		
+		boards.stream().forEach((item)->{
+			System.out.println(item);
+		});
 		
 		//page.first = true, false <- 첫번째 페이지면  true
 		//page.last = true, false <- true 마지막 페이지 

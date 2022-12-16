@@ -71,6 +71,8 @@ public class UserService {
 			userEntity.setEmail(reqUser.getEmail());
 			//더티체킹 업데이트  
 		}
+		
+		
 	}
 
 	@Transactional
