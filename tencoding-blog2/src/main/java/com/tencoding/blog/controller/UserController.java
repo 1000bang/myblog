@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import com.tencoding.blog.dto.GoogleProfile;
 import com.tencoding.blog.dto.KakaoAccount;
 import com.tencoding.blog.dto.KakaoProfile;
 import com.tencoding.blog.dto.OAuthToken;
@@ -165,8 +166,79 @@ public class UserController {
 		
 		@GetMapping("/auth/google/callback")
 		//@ResponseBody // data 를 리턴 함
-		public String googleCallback(@RequestParam String code) {
-			return code;
+		public String  googleCallback(@RequestParam String code, @RequestParam String scope) {
+			
+			RestTemplate rt = new RestTemplate();
+			// 헤더 만들기
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+			// 바디 만들기
+			MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+			params.add("code", code);
+			params.add("client_id", "581731462324-vd9i5jd12s0j4d97jcv6n57l1nf2suik.apps.googleusercontent.com");
+			params.add("client_secret", "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");
+			params.add("redirect_uri", "http://localhost:9090/auth/google/callback");
+			params.add("grant_type", "authorization_code");
+
+			HttpEntity<MultiValueMap<String, String>> requestGoogleToken = new HttpEntity<>(params, headers);
+
+			// 헤더 변조 해서 실행 시키는 메서드 RestTemplate exchange() 이다.
+			ResponseEntity<OAuthToken> response = 
+					rt.exchange("https://oauth2.googleapis.com/token",
+							HttpMethod.POST,
+							requestGoogleToken,
+							OAuthToken.class);
+			System.out.println(code);
+			System.out.println(scope);
+			
+			
+			///
+			
+			
+			String accessToken = response.getBody().accessToken; 
+			String tokentype = response.getBody().tokenType; 
+			String idtoken = response.getBody().idToken; 
+			RestTemplate rt2 = new RestTemplate();
+			// header 
+			HttpHeaders headers2 = new HttpHeaders();
+			headers2.add("Authorization", tokentype+accessToken);
+			headers2.add("Content-type", "application/x-www-form-urlencoded;");
+			
+			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(headers2);
+			ResponseEntity<GoogleProfile> response2 = rt2.exchange(
+					"https://www.googleapis.com/oauth2/v1/userinfo",
+					HttpMethod.GET,
+					request,
+					GoogleProfile.class
+					);
+			
+			GoogleProfile account = response2.getBody();
+			User googleUser = User.builder()
+					.username(account.name + "_" + account.id)
+					.email(account.email)
+					.password(tencoKey)
+					.oauth("google")
+					.build();
+			
+			//신규회원 구
+			User originUser = userService.searchUserNam(googleUser.getUsername());
+			
+			if(originUser.getUsername() == null) {
+				System.out.println("신규회원이기 때문에 회원가입 진행 ");
+				userService.saveUser(googleUser);
+				
+			}
+//			 신규 회원가입이던 한번 가입했던 유저이던 무조건 소셜 로그인이면 세션을 생성해줘야함
+//			 자동 로그인 처리 --> 시큐리티 세션에다 강제 저장
+//			 authentication 할 때 principal 이 캐치 
+			Authentication authentication = authenticationManager
+					.authenticate(new UsernamePasswordAuthenticationToken(googleUser.getUsername(), tencoKey));
+			
+			//컨텍스트 홀더에 밀어넣기  
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			
+			return "redirect:/";
 		}
 		
 	
