@@ -35,7 +35,7 @@ public class User {
 	@Column(length = 100, nullable = false, unique = true)
 	private String username;
 	
-	@Size(min = 5, max = 12)
+	
 	@Column(length = 100, nullable = false)
 	private String password;
 	@Email
