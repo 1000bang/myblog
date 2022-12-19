@@ -32,6 +32,7 @@ import org.springframework.web.client.RestTemplate;
 import com.tencoding.blog.dto.GoogleProfile;
 import com.tencoding.blog.dto.KakaoAccount;
 import com.tencoding.blog.dto.KakaoProfile;
+import com.tencoding.blog.dto.NaverProfile;
 import com.tencoding.blog.dto.OAuthToken;
 import com.tencoding.blog.dto.User;
 import com.tencoding.blog.service.UserService;
@@ -249,7 +250,7 @@ public class UserController {
 		}
 		
 		@GetMapping("/auth/naver/callback")
-		@ResponseBody // data 를 리턴 함
+		//@ResponseBody // data 를 리턴 함
 		public String naverCallback(@RequestParam String code, @RequestParam String state) throws UnsupportedEncodingException {
 			String clientId = "IdFsFqY3HF0S1iEY73kF";//애플리케이션 클라이언트 아이디값";
 		    String clientSecret = "ApO2UiJob6";//애플리케이션 클라이언트 시크릿값";
@@ -257,45 +258,82 @@ public class UserController {
 		    String state2 = state;
 		    String redirectURI = URLEncoder.encode("http://localhost:9090/auth/naver/callback", "UTF-8");
 		    String apiURL;
-		    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
-		    apiURL += "client_id=" + clientId;
-		    apiURL += "&client_secret=" + clientSecret;
-		    apiURL += "&redirect_uri=" + redirectURI;
-		    apiURL += "&code=" + code;
-		    apiURL += "&state=" + state;
-		    String access_token = "";
-		    String refresh_token = "";
-		    System.out.println("apiURL="+apiURL);
-		    try {
-		      URL url = new URL(apiURL);
-		      HttpURLConnection con = (HttpURLConnection)url.openConnection();
-		      con.setRequestMethod("GET");
-		      int responseCode = con.getResponseCode();
-		      BufferedReader br;
-		      System.out.print("responseCode="+responseCode);
-		      if(responseCode==200) { // 정상 호출
-		        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		      } else {  // 에러 발생
-		        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-		      }
-		      String inputLine;
-		      StringBuffer res = new StringBuffer();
-		      while ((inputLine = br.readLine()) != null) {
-		        res.append(inputLine);
-		      }
-		      br.close();
-		      if(responseCode==200) {
-		    	  System.out.println(res);
-		      }
-		      access_token = res.toString().valueOf("access_toekn");
-		      refresh_token = res.toString().valueOf("refresh_token");
-		      System.out.println(access_token);
-		      System.out.println(refresh_token);
-		      return res.toString();
-		    } catch (Exception e) {
-		      System.out.println(e);
-		    }
-		    
-		    return null;
+		    apiURL = "https://nid.naver.com/oauth2.0/token";
+		   
+		    RestTemplate rt = new RestTemplate();
+			// 헤더 만들기
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+			// 바디 만들기
+			MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+			params.add("grant_type", "authorization_code");
+			params.add("client_id", clientId);
+			params.add("client_secret", clientSecret);
+			params.add("redirect_uri", redirectURI);
+			params.add("code", code);
+			params.add("state", state);
+
+			HttpEntity<MultiValueMap<String, String>> requestNaverToken = new HttpEntity<>(params, headers);
+
+			// 헤더 변조 해서 실행 시키는 메서드 RestTemplate exchange() 이다.
+			ResponseEntity<OAuthToken> response = 
+					rt.exchange(apiURL,
+							HttpMethod.POST,
+							requestNaverToken,
+							OAuthToken.class);
+
+			 
+			OAuthToken authtoken = response.getBody(); 
+			RestTemplate rt2 = new RestTemplate();
+			// header 
+			HttpHeaders headers2 = new HttpHeaders();
+			
+			headers2.add("Authorization", "Bearer "+authtoken.accessToken);
+			headers2.add("Content-type", "application/x-www-form-urlencoded;");
+
+			//JWT 주의 bearer 다음에 무조건 한칸 띄우기 
+			
+			HttpEntity<MultiValueMap<String, String>> naverRequest =
+					new HttpEntity<>(headers2);
+			//파싱 받을 dto 만들어야 함
+			ResponseEntity<NaverProfile> naverDataResponse  = rt2.exchange(
+					"https://openapi.naver.com/v1/nid/me",
+					HttpMethod.POST,
+					naverRequest,
+					NaverProfile.class
+					);
+			
+			System.out.println("naverDataRespsone : " + naverDataResponse.getBody());
+			
+			 //User object 만들어서 판별해야함 
+
+			NaverProfile account = naverDataResponse.getBody();
+			User naverUser = User.builder()
+					.username(account.response.nickname+"_" + account.response.id)
+					.email(account.response.email)
+					.password(tencoKey)
+					.oauth("naver")
+					.build();
+
+		
+			// 데이터가 있나 없나 확인 
+			User originUser = userService.searchUserNam(naverUser.getUsername());
+			
+			if(originUser.getUsername() == null) {
+				System.out.println("신규회원이기 때문에 회원가입 진행 ");
+				userService.saveUser(naverUser);
+				
+			}
+			// 신규 회원가입이던 한번 가입했던 유저이던 무조건 소셜 로그인이면 세션을 생성해줘야함
+			// 자동 로그인 처리 --> 시큐리티 세션에다 강제 저장
+			// authentication 할 때 principal 이 캐치 
+			Authentication authentication = authenticationManager
+					.authenticate(new UsernamePasswordAuthenticationToken(naverUser.getUsername(), tencoKey));
+			
+			//컨텍스트 홀더에 밀어넣기  
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+
+			return "redirect:/";
 		}
 }
