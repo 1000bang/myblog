@@ -36,10 +36,12 @@
 	<c:forEach var="num" items="${pageNumbers}">
 		<c:choose>
 			<c:when test="${nowPage eq num}">
-				<li class="page-item active"><a class="page-link" href="?page=${num - 1}">${num}</a></li>
+				<li class="page-item active">
+				<a class="page-link" href="?q=${q}&page=${num - 1}">${num}
+				</a></li>
 			</c:when>
 			<c:otherwise>
-				<li class="page-item"><a class="page-link" href="?page=${num - 1}">${num}</a></li>
+				<li class="page-item"><a class="page-link" href="?q=${q}&page=${num - 1}">${num}</a></li>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
