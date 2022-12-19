@@ -131,7 +131,26 @@ let index = {
 			alert("댓글 작성에 실패하였습니다.");
 		});		
 		
+	},
+	
+	replyDelete : function(boardId, replyId){
+
+		$.ajax({
+			type: "DELETE",
+			url: `/api/board/${boardId}/reply/${replyId}`,
+			dataType:"json" // 적어도되고 안적어도 되고 
+		}).done(function(resData){
+			if(resData.httpStatus == "OK"){
+				alert("삭제가 완료 되었습니다. ");
+				location.href = `/board/${boardId}`;
+			}
+		}).fail(function(error){
+			alert("글삭제 실패하였습니다. ");
+		});
+		
 	}
+	
+	
 
 
 

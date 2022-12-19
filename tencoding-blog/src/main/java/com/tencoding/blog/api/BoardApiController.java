@@ -56,5 +56,17 @@ public class BoardApiController {
 		return new ResponseDto<Integer>(HttpStatus.OK, 1);
 	}
 	
+	@DeleteMapping("/api/board/{boardId}/reply/{replyId}")
+	public ResponseDto<Integer> replyDelete(@PathVariable int boardId,  
+			@PathVariable int replyId, @AuthenticationPrincipal PrincipalDetail detail) {
+		//확인 절차 ( 현재 삭제 요청자, db저장된 사용자에 id 역시 비교해서 처리를 해줘야함)
+		try {
+			boardService.deleteReplyById(replyId, detail.getUser().getId());
+		} catch (Exception e) {
+		}
+		
+		
+		return new ResponseDto<Integer>(HttpStatus.OK, 1);
+	}
 	
 }

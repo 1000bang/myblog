@@ -76,5 +76,29 @@ public class BoardService {
 		replyRepository.save(reqReply);
 		
 	}
+	@Transactional
+	public void deleteReplyById(int replyId, int requestId) {
+		Reply replyEntity = replyRepository.findById(replyId).orElseThrow(()->{
+			return new IllegalArgumentException("해당글을 찾을 수 없.");
+		});
+		
+		try {
+			int dbWrite = replyEntity.getUser().getId();
+			if(dbWrite == requestId) {
+				replyRepository.deleteById(replyId);
+			}else {
+				throw new IllegalArgumentException("해당글을 찾을 수 없.");
+			}
+		} catch (Exception e) {
+			
+		}
+		
+		
+		
+	}
+	
+
+	
+	
 
 }
