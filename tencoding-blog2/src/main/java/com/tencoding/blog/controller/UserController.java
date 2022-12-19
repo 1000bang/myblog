@@ -2,6 +2,13 @@ package com.tencoding.blog.controller;
 
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -241,5 +248,54 @@ public class UserController {
 			return "redirect:/";
 		}
 		
-	
+		@GetMapping("/auth/naver/callback")
+		@ResponseBody // data 를 리턴 함
+		public String naverCallback(@RequestParam String code, @RequestParam String state) throws UnsupportedEncodingException {
+			String clientId = "IdFsFqY3HF0S1iEY73kF";//애플리케이션 클라이언트 아이디값";
+		    String clientSecret = "ApO2UiJob6";//애플리케이션 클라이언트 시크릿값";
+		    String code2 = code;
+		    String state2 = state;
+		    String redirectURI = URLEncoder.encode("http://localhost:9090/auth/naver/callback", "UTF-8");
+		    String apiURL;
+		    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
+		    apiURL += "client_id=" + clientId;
+		    apiURL += "&client_secret=" + clientSecret;
+		    apiURL += "&redirect_uri=" + redirectURI;
+		    apiURL += "&code=" + code;
+		    apiURL += "&state=" + state;
+		    String access_token = "";
+		    String refresh_token = "";
+		    System.out.println("apiURL="+apiURL);
+		    try {
+		      URL url = new URL(apiURL);
+		      HttpURLConnection con = (HttpURLConnection)url.openConnection();
+		      con.setRequestMethod("GET");
+		      int responseCode = con.getResponseCode();
+		      BufferedReader br;
+		      System.out.print("responseCode="+responseCode);
+		      if(responseCode==200) { // 정상 호출
+		        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		      } else {  // 에러 발생
+		        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+		      }
+		      String inputLine;
+		      StringBuffer res = new StringBuffer();
+		      while ((inputLine = br.readLine()) != null) {
+		        res.append(inputLine);
+		      }
+		      br.close();
+		      if(responseCode==200) {
+		    	  System.out.println(res);
+		      }
+		      access_token = res.toString().valueOf("access_toekn");
+		      refresh_token = res.toString().valueOf("refresh_token");
+		      System.out.println(access_token);
+		      System.out.println(refresh_token);
+		      return res.toString();
+		    } catch (Exception e) {
+		      System.out.println(e);
+		    }
+		    
+		    return null;
+		}
 }

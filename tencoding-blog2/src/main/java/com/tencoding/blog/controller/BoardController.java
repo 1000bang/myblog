@@ -1,5 +1,6 @@
 package com.tencoding.blog.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +27,22 @@ public class BoardController {
 	@GetMapping({"","/"})
 	public String index(Model model, 
 			@PageableDefault(size = 3, sort = "id", direction = Direction.DESC) Pageable pageable) {
-		
+		final int SHOWBLOCKS = 2;
 		Page<Board> boards = boardService.getBoardList(pageable);
 		
-		boards.stream().forEach((item)->{
-			System.out.println(item);
-		});
+		int nowPage = boards.getPageable().getPageNumber() + 1;
+		int startPage = Math.max(nowPage - SHOWBLOCKS , 1 );
+		int endPage = Math.min(nowPage + SHOWBLOCKS , boards.getTotalPages());
 		
-		//page.first = true, false <- 첫번째 페이지면  true
-		//page.last = true, false <- true 마지막 페이지 
-						
+		ArrayList<Integer> pageList = new ArrayList<>();
+		for (int i = startPage; i <= endPage; i++) {
+			pageList.add(i);
+		}
+		
 		
 		model.addAttribute("boards", boards);  // -> jsp파일에서 model 추상화객체를 이용해 컨트롤러에서 내려준 데이터 접근할 수 있다  
+		model.addAttribute("pageList", pageList);  // -> jsp파일에서 model 추상화객체를 이용해 컨트롤러에서 내려준 데이터 접근할 수 있다  
+		model.addAttribute("nowPage", nowPage);  // -> jsp파일에서 model 추상화객체를 이용해 컨트롤러에서 내려준 데이터 접근할 수 있다  
 		
 		
 		return "index";
