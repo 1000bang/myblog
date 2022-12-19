@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tencoding.blog.dto.Board;
 import com.tencoding.blog.service.BoardService;
@@ -25,12 +26,16 @@ public class BoardController {
 	private BoardService boardService;
 	
 	//?page = 2
-	@GetMapping({"","/"})
-	public String index(Model model, 
+	@GetMapping({"","/", "/board/search"})
+	public String index(Model model, @RequestParam(required = false) String q,
 			@PageableDefault(size = 3, sort = "id", direction = Direction.DESC) Pageable pageable) {
 		
-		Page<Board> boards = boardService.getBoardList(pageable);
+		// select * from 
+	
+		String searchTitle = q == null? "": q;
+		Page<Board> boards = boardService.searchBoard(searchTitle, pageable);
 		
+		//Page<Board> boards = boardService.getBoardList(pageable);
 		
 		// 1. 현재 페이지 앞뒤로 2칸씩 보이기
 		// 2. 현재페이지 active 처리하기
@@ -59,7 +64,7 @@ public class BoardController {
 		model.addAttribute("startPage", startPageNumber);
 		model.addAttribute("endPage", endPageNumber);
 		model.addAttribute("pageNumbers", pageNumbers);
-		
+		model.addAttribute("q", searchTitle);
 	
 		
 		return "index";
