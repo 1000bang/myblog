@@ -2,6 +2,10 @@
  * 
  */
 
+// csrf token & header 
+let token = $("meta[name='_csrf']").attr("content");
+let csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
 let index = {
 	init: function() {
 		$("#btn--save").bind("click", () => {
@@ -22,7 +26,7 @@ let index = {
 
 	save: function() {
 		let xcheckTitle = XSSCheck($("#title").val());
-		alert(xcheckTitle);
+
 		let data = {
 			title: xcheckTitle,
 
@@ -35,6 +39,9 @@ let index = {
 		//ajax 통신 요청  
 		// $.ajax({}).done().fail();
 		$.ajax({
+			beforeSend : function(xhr){
+					xhr.setRequestHeader(csrfHeader, token);
+			},
 			type: "POST",
 			url: "/api/board",
 			data: JSON.stringify(data),
@@ -60,6 +67,9 @@ let index = {
 		//ajax통신
 
 		$.ajax({
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(csrfHeader, token);
+			},
 			type: "DELETE",
 			url: "/api/board/" + id
 
@@ -87,7 +97,9 @@ let index = {
 
 
 		$.ajax({
-
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(csrfHeader, token);
+			},
 			type: "PUT",
 			url: "/api/board/" + boardId,
 			data: JSON.stringify(data),
@@ -116,7 +128,9 @@ let index = {
 
 
 		$.ajax({
-
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(csrfHeader, token);
+			},
 			type: "POST",
 			url: `/api/board/${replyData.boardId}/reply`,
 			data: JSON.stringify(replyData),
@@ -138,6 +152,9 @@ let index = {
 	replyDelete: function(boardId, replyId) {
 
 		$.ajax({
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(csrfHeader, token);
+			},
 			type: "DELETE",
 			url: `/api/board/${boardId}/reply/${replyId}`,
 			dataType: "json" // 적어도되고 안적어도 되고 

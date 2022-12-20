@@ -5,6 +5,7 @@
 <div class="container">
 	<form action="">
 		<div class="form-group">
+		
 			<label for="username">UserName:</label> <input type="text" class="form-control" placeholder="Enter username" id="username" value= "teco">
 		</div>
 		<div class="form-group">

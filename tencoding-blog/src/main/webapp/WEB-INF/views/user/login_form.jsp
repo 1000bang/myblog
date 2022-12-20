@@ -4,6 +4,8 @@
 <div class="container">
 	<form action="/auth/loginProc" method="post">
 		<div class="form-group">
+			<!-- form태그안에 csrf토큰 값을 넣어 -->
+			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}">
 			<label for="username">Email address:</label> <input type="text" class="form-control" placeholder="Enter username" name = "username" id="username" value="teco">
 		</div>
 		<div class="form-group">
