@@ -34,8 +34,8 @@ public class BoardController {
 	@PostMapping("/api/board")
 	public String save(Board board, @AuthenticationPrincipal PrincipalDetail detail) {
 	
-		//board service 
-		//저장, 직접 만들면 됨 
+		//mime type이 xxx-formencurl 로 들어오면 requestbody 를 빼줘야함 
+		// requestbody 어노테이션은 map으로만 받는다. 
 		System.out.println(board);
 		boardService.write(board, detail.getUser());
 		return "redirect:/";

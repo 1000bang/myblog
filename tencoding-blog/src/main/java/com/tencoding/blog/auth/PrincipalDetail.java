@@ -11,7 +11,7 @@ import com.tencoding.blog.dto.User;
 /*
  * 시큐리티가 로그인 요청을 가로채서 
  * 로그인을 처리하고 (DB접근해서 확인) 
- * 완료되면 UserDetail 타입에 오브젝트를 시큐리티에 공유한 세션 저장소에 장을 해준다. 
+ * 완료되면 UserDetail 타입에 오브젝트를 시큐리티에 공유한 세션 저장소에 저 장을 해준다. 
  * (우리가 새롭게 정의한 Object로 처리할 예정)
  */
 public class PrincipalDetail implements UserDetails{

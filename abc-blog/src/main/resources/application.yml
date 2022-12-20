@@ -1,0 +1,34 @@
+server: 
+  port: 9090
+  servlet:
+    context-path: "/"
+    
+spring:
+  mvc:
+    view:
+      prefix: /WEB_INF/views/
+      suffix: .jsp
+  datasource:
+    driver-class-name : com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/abcblog?serverTimezone=Asia/Seoul
+    username: ten
+    password: 1q2w3e4r5t!
+   
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto : create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      user-new-id-generator-mappings: false
+    show-sql: true
+    properties:
+      hibernate.format_sql : true
+   
+  jasckson:
+    serialization:
+      fail-on-empty-beans: false
+      
+tenco:
+ key: 85135f3c6bfe9df1735f8806f045ae73cece7219f7840d8e7e9297a7f846b48a
+    
