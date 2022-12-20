@@ -13,9 +13,6 @@ let csrfHeader = $("meta[name='_csrf_header']").attr("content");
 			this.save();	 
 		 }); //bind, on 같음
 		 
-		 $("#btn--login").bind("click", () => {
-			this.login();	 
-		 }); 
 		 
 		 // id로 접근하면 # 클래스로 접근하면 . 
 		 $("#btn--update").bind("click", () => {
@@ -62,29 +59,6 @@ let csrfHeader = $("meta[name='_csrf_header']").attr("content");
 		});
 	},
  
-	login: function(){
-		let data = {
-			username: $("#username").val(),
-			password: $("#password").val(),
-	
-		};
-		$.ajax({
-			
-			type:"POST",
-			url: "/api/user/login",
-			data : JSON.stringify(data),
-			contentType: "application/json; charset=utf-8",
-			dataType: "json"
-		}).done(function(data, textStatus, xhr){
-			alert("로그인성공  ");
-			console.log(data);
-			location.href = "/";  //루트 컨텍스트로 가라 
-			
-		}).fail(function(error){
-			alert("로그인 실패 ");
-		})
-		
-	},
 	
 	update: function(){
 		let data = {

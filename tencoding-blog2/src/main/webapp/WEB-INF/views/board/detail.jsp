@@ -25,6 +25,39 @@
 	</div>
 	<br/><br/><br/>
 </div>
+<div class="card">
+
+		<div class="card-body">
+			<textarea rows="1" class="form-control" id="content"></textarea>
+		</div>
+		<div class="card-footer">
+			<button class="btn btn-primary" id="btn-reply-save"  style="float: right">add reply</button>
+		</div>
+
+		<br>
+		<div class="card">
+			<div class="card-header">댓글 목록</div>
+		</div>
+
+		<ul class="list-group">
+
+			<c:forEach var="reply" items="${board.replys}">
+				<li class="list-group-item d-flex justify-content-between">
+					<div>${reply.content}</div>
+					<div class="d-flex">
+						<div>작성자 :&nbsp; ${reply.user.username} &nbsp;&nbsp;</div>
+						<c:if test="${reply.user.id eq principal.user.id}">
+							<button class="btn btn-danger" onclick="index.replyDelete(${board.id}, ${reply.id})" style="height: 35">삭제</button>
+						</c:if>				
+					</div>
+				</li>
+		
+			</c:forEach>
+ 			
+		</ul>
+
+
+	</div>
 
 <<script type="text/javascript" src="/js/board.js">
 

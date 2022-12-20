@@ -9,13 +9,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tencoding.blog.auth.PrincipalDetail;
 import com.tencoding.blog.dto.Board;
+import com.tencoding.blog.dto.ResponseDto;
 import com.tencoding.blog.service.BoardService;
 
 @Controller
@@ -24,6 +29,19 @@ public class BoardController {
 	//di
 	@Autowired
 	private BoardService boardService;
+	
+	
+	@PostMapping("/api/board")
+	public String save(Board board, @AuthenticationPrincipal PrincipalDetail detail) {
+	
+		//board service 
+		//저장, 직접 만들면 됨 
+		System.out.println(board);
+		boardService.write(board, detail.getUser());
+		return "redirect:/";
+	}
+	
+	
 	
 	//?page = 2
 	@GetMapping({"","/", "/board/search"})

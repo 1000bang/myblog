@@ -1,5 +1,9 @@
 package com.tencoding.blog.api;
 
+import java.io.UnsupportedEncodingException;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,15 +26,24 @@ public class BoardApiController {
 	@Autowired
 	private BoardService boardService;
 	
-	@PostMapping("/api/board")
-	public ResponseDto<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail detail) {
-		
-		//board service 
-		//저장, 직접 만들면 됨 
-		System.out.println(board);
-		boardService.write(board, detail.getUser());
-		return new ResponseDto<Integer>(HttpStatus.OK, 1);
-	}
+//	@PostMapping("/api/board")
+//	public ResponseDto<Integer> save(Board board, @AuthenticationPrincipal PrincipalDetail detail) {
+//	
+//		//board service 
+//		//저장, 직접 만들면 됨 
+//		System.out.println(board);
+//		boardService.write(board, detail.getUser());
+//		return new ResponseDto<Integer>(HttpStatus.OK, 1);
+//	}
+//	@PostMapping("/api/board")
+//	public ResponseDto<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail detail) {
+//		
+//		//board service 
+//		//저장, 직접 만들면 됨 
+//		System.out.println(board);
+//		boardService.write(board, detail.getUser());
+//		return new ResponseDto<Integer>(HttpStatus.OK, 1);
+//	}
 	
 	
 	@DeleteMapping("/api/board/{id}")

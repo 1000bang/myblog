@@ -5,8 +5,9 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
 <div class="container">
-	<form action="">
+	<form action="/api/board" method="post" enctype="application/json; charset = utf-8">
 		<div class="form-group">
+		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}">
 			<label for="title">Title</label> <input type="text" name="title" id="title" class="form-control">
 
 		</div>
@@ -16,9 +17,9 @@
 	</textarea>
 		</div>
 
+	<button type="submit" id="" class="btn btn-primary">글쓰기 완료</button>
 	</form>
 
-	<button type="button" id="btn--save" class="btn btn-primary">글쓰기 완료</button>
 
 </div>
 
