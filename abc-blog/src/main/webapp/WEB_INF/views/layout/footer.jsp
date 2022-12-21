@@ -1,15 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <br>
-<div class="jumbotron text-center" style="margin-bottom: 0;" >
-	<h3>뱅 블로그</h3>
-	<br>
-	<p>Created by 1000bang</p>
 
-	<p>📞 010-1234-1234</p>
+<footer class="py-4 bg-secondary mt-auto">
+	<div class="container">
+		<h3 class="m-0 text-center text-white">ABC 블로그</h3>
+		<br>
+		<p class="m-0 text-center text-white">📞 010-1234-1234</p>
+		<p class="m-0 text-center text-white">🏢 부산 수영구 남천동</p>
+		<p class="m-0 text-center text-white">Copyright &copy; 1000bang 2022</p>
+	</div>
 
-	<p>🏢 부산 수영구 남천동</p>
-</div>
+</footer>
 
 
 </body>

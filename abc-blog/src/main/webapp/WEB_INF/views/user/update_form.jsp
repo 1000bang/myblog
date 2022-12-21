@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp"%>
-
+<br><br>
 <div class="container">
 	<form action="">
 			<input type="hidden" name="id" id="id" value = "${principal.user.id}"></input>

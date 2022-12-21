@@ -7,7 +7,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-
+<br><br>
 <div class="container">
 	<form action="">
 	<input type="hidden" id = "id" value="principal.user.id">
@@ -21,12 +21,14 @@
 	<div class="form-group">
 			
 			<label for="username">Username</label> 
-			<input type="text" name="username" id="username" class="form-control" value="${principal.user.username}" readonly="readonly">
+			<input type="text" name="username" id="username" 
+			class="form-control" value="${principal.user.username}" readonly="readonly">
 
 		</div>
 	
 		<div class="form-group">
-			<label for="title">Title</label> <input type="text" name="title" id="title" class="form-control" value="${board.title}">
+			<label for="title">Title</label> <input type="text" name="title" id="title" 
+			class="form-control" value="${board.title}">
 
 		</div>
 		<div>

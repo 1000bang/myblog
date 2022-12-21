@@ -17,7 +17,9 @@
   
   <c:set var = "isDisabled" value = "disabled"> </c:set>
   <c:set var = "isNotDisabled" value = ""> </c:set>
-	<li class="page-item ${boards.first ? isDisabled : isNotDisabled}"><a class="page-link" href="?page=${boards.number - 1}" >Previous</a></li>
+	<li class="page-item ${boards.first ? isDisabled : isNotDisabled}">
+		<a class="page-link" href="?page=${boards.number - 1}" >Previous</a>
+	</li>
 	<c:forEach var="page" items="${pageList}">
 	<c:choose>
 	<c:when test="${nowPage eq page}">

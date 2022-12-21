@@ -17,7 +17,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body>
+<body class= "d-flex flex-column min-vh-100">
 
     <nav class="navbar navbar-expand-sm bg-success navbar-dark fixed-top">
         
@@ -52,4 +52,5 @@
 		</div>
 	</nav>
 
-	<br><br><br>
+	<br>
+	<br>

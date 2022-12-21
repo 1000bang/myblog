@@ -3,7 +3,7 @@
 <%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp"%>
-
+<br><br>
 <div class="container">
 	<form action="/auth/loginProc" method="Post">
 		<div class="form-group">
@@ -15,6 +15,7 @@
 			<label for="password">password :</label>
 			 <input type="password" class="form-control" placeholder="Enter password" id="password" name="password" value="asd123">
 		</div>
+		
 		 <input type="hidden" name="${error}" content="${exception}"></input>
 		<c:choose>
 		<c:when test = "${empty error}">
@@ -25,6 +26,7 @@
             </span>
 		</c:otherwise>		
 		 </c:choose> 
+		
 		
 		<button type="submit"  id="btn--login" class="btn btn-success">Log-in</button>
 		

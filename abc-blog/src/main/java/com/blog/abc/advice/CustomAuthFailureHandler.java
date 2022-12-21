@@ -34,11 +34,9 @@ public class CustomAuthFailureHandler extends SimpleUrlAuthenticationFailureHand
 		} else {
 			errorMessage = "알 수 없는 이유로 로그인에 실패하였습니다 관리자에게 문의하세요.";
 		}
-		
-		
-		
-		
+
 		errorMessage= URLEncoder.encode(errorMessage,"UTF-8");//한글 인코딩 깨지는 문제 방지
+		//실패했을 때 파라미터에 붙여서 어디로 보낼 지 정한다 (보통 로그인페이지로)
 		setDefaultFailureUrl("/auth/login_form?error=true&exception=" + errorMessage);
 		
 		

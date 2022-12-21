@@ -56,8 +56,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.loginProcessingUrl("/auth/loginProc")
 		.failureHandler(customAuthFailureHandler())// 이 요청이 오면 캐치해라 
 		.defaultSuccessUrl("/");
-		
-	
 }
 	/*
 	 * 회원정보 수정시에 authentication 객체를 생성하기 위해 AuthenticationManager가 필요하다 
