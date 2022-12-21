@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="layout/header.jsp"%>
-
+<br>
 <div class="container">
 	<div class="d-flex justify-content-end m-2">
 		<form action="/board/search" method="get" class="form-inline">

@@ -36,7 +36,6 @@ public class BoardController {
 	
 		//mime type이 xxx-formencurl 로 들어오면 requestbody 를 빼줘야함 
 		// requestbody 어노테이션은 map으로만 받는다. 
-		System.out.println(board);
 		boardService.write(board, detail.getUser());
 		return "redirect:/";
 	}
@@ -60,18 +59,11 @@ public class BoardController {
 		// 3. 페이지 숫자를 눌렀을 경우 해당 페이지로 화면 이동하기 
 		
 		// 총 몇페이지가 나오는지 확인 
-		System.out.println(">>>>>>화면에 보여줄 게시글 수  : " + boards.getSize());
-		System.out.println(">>>>>>전체 페이지 크기 : " + boards.getTotalPages());
-		System.out.println(">>>>>>현재 페이지 번호 : " + boards.getPageable().getPageNumber());
-		
 		int nowPage = boards.getPageable().getPageNumber() + 1;
 		
 		int startPageNumber = Math.max(nowPage -2, 1);
 		int endPageNumber = Math.min(nowPage + 2, boards.getTotalPages());
 	
-		System.out.println(">>>>>>시작해야하는 번호 : " + startPageNumber);
-		System.out.println(">>>>>>마지막  번호 : " + endPageNumber);
-
 		ArrayList<Integer> pageNumbers = new ArrayList<>();
 		for (int i = startPageNumber; i < endPageNumber + 1; i++) {
 			pageNumbers.add(i);

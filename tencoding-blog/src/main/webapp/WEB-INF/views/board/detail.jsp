@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp"%>
 
-
+<br>
 <div class="container">
 
 	<button class="btn bg-secondary" onclick="history.back();">돌아가기</button>
@@ -13,8 +13,7 @@
 	<br /> <br /> <br />
 
 	<div>
-		<input type="hidden" id="board-id" value="${board.id}">
-		글 번호 : <span id="board-id"> <i> ${board.id + 100} </i></span>
+		<input type="hidden" id="board-id" value="${board.id}"> 글 번호 : <span id="board-id"> <i> ${board.id + 100} </i></span>
 	</div>
 	<div>
 		글 작성자 : <span id=""> <i> ${board.user.username} </i></span>
@@ -33,7 +32,7 @@
 			<textarea rows="1" class="form-control" id="content"></textarea>
 		</div>
 		<div class="card-footer">
-			<button class="btn btn-primary" id="btn-reply-save"  style="float: right">add reply</button>
+			<button class="btn btn-primary" id="btn-reply-save" style="float: right">add reply</button>
 		</div>
 
 		<br>
@@ -50,12 +49,12 @@
 						<div>작성자 :&nbsp; ${reply.user.username} &nbsp;&nbsp;</div>
 						<c:if test="${reply.user.id eq principal.user.id}">
 							<button class="btn btn-danger" onclick="index.replyDelete(${board.id}, ${reply.id})" style="height: 35">삭제</button>
-						</c:if>				
+						</c:if>
 					</div>
 				</li>
-		
+
 			</c:forEach>
- 			
+
 		</ul>
 
 
