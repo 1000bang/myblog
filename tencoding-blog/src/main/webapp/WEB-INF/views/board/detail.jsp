@@ -29,7 +29,7 @@
 	<div class="card">
 
 		<div class="card-body">
-			<textarea rows="1" class="form-control" id="content"></textarea>
+			<textarea rows="1" class="form-control" id="reply--content"></textarea>
 		</div>
 		<div class="card-footer">
 			<button class="btn btn-primary" id="btn-reply-save" style="float: right">add reply</button>
@@ -40,10 +40,10 @@
 			<div class="card-header">댓글 목록</div>
 		</div>
 
-		<ul class="list-group">
+		<ul class="list-group" id = "reply--box">
 
 			<c:forEach var="reply" items="${board.replys}">
-				<li class="list-group-item d-flex justify-content-between">
+				<li class="list-group-item d-flex justify-content-between" id = "reply--${reply.id}">
 					<div>${reply.content}</div>
 					<div class="d-flex">
 						<div>작성자 :&nbsp; ${reply.user.username} &nbsp;&nbsp;</div>

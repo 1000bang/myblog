@@ -62,11 +62,13 @@ public class BoardApiController {
 	}
 	
 	@PostMapping("/api/board/{boardId}/reply")
-	public ResponseDto<Integer> replySave(@PathVariable int boardId,  
+	public ResponseDto<Reply> replySave(@PathVariable int boardId,  
 			@RequestBody Reply reqReply, @AuthenticationPrincipal PrincipalDetail detail) {
 		
-		boardService.writeReply(boardId, reqReply, detail.getUser());
-		return new ResponseDto<Integer>(HttpStatus.OK, 1);
+		 Reply replyEntity = boardService.writeReply(boardId, reqReply, detail.getUser());
+		
+		
+		return new ResponseDto<Reply>(HttpStatus.OK, replyEntity);
 	}
 	
 	@DeleteMapping("/api/board/{boardId}/reply/{replyId}")

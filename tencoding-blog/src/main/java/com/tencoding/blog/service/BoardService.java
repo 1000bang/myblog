@@ -64,7 +64,7 @@ public class BoardService {
 	@Autowired
 	private ReplyRepository replyRepository;
 	@Transactional
-	public void writeReply(int boardId, Reply reqReply, User user) {
+	public Reply writeReply(int boardId, Reply reqReply, User user) {
 		
 		//영속화 되었다 ...? ..!
 		Board board = boardRepository.findById(boardId).orElseThrow(() ->{
@@ -73,9 +73,11 @@ public class BoardService {
 		
 		reqReply.setUser(user);
 		reqReply.setBoard(board);
-		replyRepository.save(reqReply);
-		
+		Reply replyEntity = replyRepository.save(reqReply);
+		return replyEntity;
 	}
+	
+	
 	@Transactional
 	public void deleteReplyById(int replyId, int requestId) {
 		Reply replyEntity = replyRepository.findById(replyId).orElseThrow(()->{

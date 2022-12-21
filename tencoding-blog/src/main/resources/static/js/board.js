@@ -122,7 +122,7 @@ let index = {
 
 		let replyData = {
 			boardId: $("#board-id").val(),  //fk (board.pk)
-			content: $("#content").val(),
+			content: $("#reply--content").val(),
 
 		};
 
@@ -139,8 +139,7 @@ let index = {
 
 		}).done(function(data, textStatus, xhr) {
 			if (data.httpStatus == "OK") {
-				alert("댓글작성이 완료되었습니다. ");
-				location.href = `/board/${replyData.boardId}`;
+				addReplyElement(data.body)
 			}
 
 		}).fail(function(error) {
@@ -173,6 +172,21 @@ let index = {
 
 
 
+}
+
+function addReplyElement(reply){
+	let childElement = `<li class="list-group-item d-flex justify-content-between" id = "reply--${reply.id}">
+					<div>${reply.content}</div>
+					<div class="d-flex">
+						<div>작성자 :&nbsp; ${reply.user.username} &nbsp;&nbsp;</div>
+						
+							<button class="btn btn-danger" onclick="index.replyDelete(${reply.board.id}, ${reply.id})" style="height: 35">삭제</button>
+						
+					</div>
+				</li>`
+
+	$("#reply--box").prepend(childElement);
+	$("#reply--content").val("");
 }
 
 function XSSCheck(str, level) {
