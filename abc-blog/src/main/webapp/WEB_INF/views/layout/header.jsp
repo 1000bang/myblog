@@ -35,6 +35,7 @@
              </c:when>
 			<c:otherwise>
                     <li class="nav-item"><a class="nav-link" href="/board/save_form">글쓰기 </a></li>
+                    <li class="nav-item"><a class="nav-link" href="/item/home">상품보기  </a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                           설정

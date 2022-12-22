@@ -6,8 +6,10 @@
 let index = {
 
 	init: function() {
-		$("#btn--save").bind("click", () => {
-			this.save();
+
+		
+		$("#btn--pay").bind("click", () => {
+			this.pay();
 		});
 
 	},
@@ -58,7 +60,11 @@ let index = {
 			console.log(error);
 			alert("회원가입 실패" + error.responseJSON.message);
 		});
-	}
+	},
+	
+	
+	
+	
 }
 
 index.init();

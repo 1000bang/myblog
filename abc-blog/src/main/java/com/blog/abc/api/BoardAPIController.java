@@ -70,4 +70,6 @@ public class BoardAPIController {
 		boardService.updateReplyById(replyIds, boardId, content);
 		return new ResponseDto<Integer>(HttpStatus.OK, 1);
 	}
+	
+	
 }
