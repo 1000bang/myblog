@@ -13,5 +13,7 @@ public class PaymentReqDto {
 	private String count;
 	private String amount;
 	private String itemname;
-	
+	private String postcode;
+	private String roadAddress;
+	private String detailAddress;
 }

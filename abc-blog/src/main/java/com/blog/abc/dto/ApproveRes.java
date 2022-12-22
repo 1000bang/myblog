@@ -10,12 +10,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "cid", "aid", "tid", "partner_user_id", "partner_order_id", "payment_method_type", "item_name",
 		"quantity", "amount", "card_info", "created_at", "approved_at" })
-@Generated("jsonschema2pojo")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Data
 public class ApproveRes {
 
 	@JsonProperty("cid")
@@ -108,6 +114,7 @@ public class ApproveRes {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@JsonPropertyOrder({ "total", "tax_free", "vat", "point", "discount", "green_deposit" })
 	@Generated("jsonschema2pojo")
+	@Data
 	public class Amount {
 
 		@JsonProperty("total")
