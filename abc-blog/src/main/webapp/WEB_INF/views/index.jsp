@@ -10,8 +10,16 @@
 	</c:otherwise>
 </c:choose>
 
-<br>
 <div class="container-foalt">
+<div class="container">
+	<div class="d-flex justify-content-end m-2">
+		<form action="" method="get" class="form-inline">
+			<input class="form-control mr-2" type="text" placeholder="검색어를 입력하세요 " name="searchValue">
+			<!-- &nbsp;&nbsp; -->
+			<button type="submit" class="btn btn-success">검색</button>
+		</form>
+	</div>
+</div>
 	<div class="row">
 		<c:forEach var="num" items="${boardData.content}">
 

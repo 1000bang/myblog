@@ -36,6 +36,12 @@ public class ItemController {
 	public String save() {
 		return "/item/home";
 	}
+	
+	@GetMapping("/save")
+	public String upload() {
+		return "/item/upload";
+	}
+	
 	@GetMapping("/map")
 	public String map() {
 		return "/item/map";

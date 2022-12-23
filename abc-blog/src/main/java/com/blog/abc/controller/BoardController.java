@@ -26,7 +26,7 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 
-	@GetMapping({ "", "/" })
+	@GetMapping({ "", "/", "index" })
 	public String index(Model model,
 			@PageableDefault(size = 6, sort = "id", direction = Direction.DESC) Pageable pageable) {
 

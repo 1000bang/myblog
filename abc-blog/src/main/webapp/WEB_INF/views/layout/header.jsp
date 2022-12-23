@@ -39,8 +39,28 @@
                     <li class="nav-item"><a class="nav-link" href="/auth/join_form">회원가입 </a></li>
              </c:when>
 			<c:otherwise>
-                    <li class="nav-item"><a class="nav-link" href="/board/save_form">글쓰기 </a></li>
-                    <li class="nav-item"><a class="nav-link" href="/item/home">상품보기  </a></li>
+                    
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                          블로그  
+                        </a>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="/index">블로그 글 보기 </a>
+                          <a class="dropdown-item"  href="/board/save_form"> 블로그 글 등록 </a></a>
+                        </div>
+                      </li>		
+                    
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                          이모티콘 
+                        </a>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="/item/save">이모티콘 등록 </a>
+                          <a class="dropdown-item"  href="/item/home"> 이모티콘 보기  </a></a>
+                        </div>
+                      </li>		
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                           설정
