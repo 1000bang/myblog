@@ -48,9 +48,8 @@
 		<a
 			href="<%=apiURL%>"><img
 			height="38" src="http://static.nid.naver.com/oauth/small_g_in.PNG" /></a>
+			<a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=581731462324-vd9i5jd12s0j4d97jcv6n57l1nf2suik.apps.googleusercontent.com&redirect_uri=http://localhost:9090/auth/google/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email">
 			
-			<a
-			href="https://accounts.google.com/o/oauth2/v2/auth?client_id=581731462324-vd9i5jd12s0j4d97jcv6n57l1nf2suik.apps.googleusercontent.com&redirect_uri=http://localhost:9090/auth/google/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email">
 			<img alt="구글 로그인 " src="/image/google.png" >
 		</a>
 	</form>
